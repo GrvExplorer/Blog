@@ -11,13 +11,12 @@ export default {
         "Nuteral-900": "#ffffff",
         "Primary": "#183B56", 
         "Primary-700": "#959ead",
-        "Primary-800": "#5a7184",
+        "Primary-800": "#5a7184",         
         "Primary-900": "#0d2436",
         "Secondary": "#1565D8",
-        "Success": "#36b37e",
+        "Success": "#36b37e", 
         "Success-100": "#e1f4ec",
         "Danger": "#FC5A5A",              
-                                             
       },
       maxWidth: {
         "10xl": "1440px" 
