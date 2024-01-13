@@ -7,7 +7,8 @@ export const registerUser = async (req, res, next) => {
   let user = await User.findOne({ email });
 
   if (user) {
-    throw new Error("User already registered");
+    res.status(208)
+    throw new Error("User already registered")
   }
 
     user = await User.create({
@@ -40,12 +41,14 @@ export const loginUser = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-      throw new Error("User not found");
+      res.status(401)
+      throw new Error("User not found")
       }
     if (user) {
       const isMatch = await user.comparePassword(password);
       if (!isMatch) {
-        throw new Error("Invalid credentials");
+        res.status(406)
+        throw new Error("Invalid credentials")
       }
       return res
         .status(200)
