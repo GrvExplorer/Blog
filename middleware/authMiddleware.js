@@ -1,13 +1,26 @@
+import pkg from "jsonwebtoken";
+import User from "../models/User.js";
+const { verify } = pkg;
+
 export const authGuard = async (req, res, next) => {
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer ")
+  ) {
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      const { id } = verify(token, process.env.JWT_SECRET);
 
-  if (req.header.authorization && req.header.authorization.startsWith('Bearer ')) {
-  try {
-    
-  } catch (error) {
-    let err = new Error('Not Authorized, Token failed')
+      req.user = await User.findById(id).select("-password");
+      next();
+    } catch (error) {
+      let err = new Error("Not Authorized, Token failed");
+      err.statusCode = 401;
+      next(err);
+    }
+  } else {
+    let err = new Error("Not Authorized, No Token");
     err.statusCode = 401;
-    next(err)
+    next(err);
   }
-  }
-
-}
+};
