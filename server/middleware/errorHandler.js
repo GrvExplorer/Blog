@@ -12,6 +12,7 @@ export const invalidPathHandler = (req, res, next) => {
   const error = new Error('Invalid Path')
   res.status(404)
   res.json({
-    message: error.message
+    message: error.message,
+    error: error
   })
 }
