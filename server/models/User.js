@@ -31,7 +31,6 @@ UserSchema.methods.generate_token = function() {
 }
 
 UserSchema.methods.comparePassword = async function(candidatePassword) {
-  console.log(candidatePassword+ '  ' + this.password);
   return await compare(candidatePassword, this.password)
 }
   

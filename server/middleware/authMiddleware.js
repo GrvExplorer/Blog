@@ -3,15 +3,18 @@ const { verify } = pkg;
 import User from "../models/User.js";
 
 export const authGuard = async (req, res, next) => {
+
+  console.log(req.headers.authorization);
+
   if (
-    req.header.authorization &&
-    req.header.authorization.startsWith("Bearer ")
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer ")
   ) {
     try {
-      const token = req.header.authorization.split(" ")[1];
+      const token = req.headers.authorization.split(" ")[1];
       const { id } = verify(token, process.env.JWT_SECRET);
 
-      req.user.id = await User.findById(id).select("-password");
+      req.user = await User.findById(id).select("-password");
       next();
     } catch (error) {
       let err = new Error("Not Authorized, Token failed");

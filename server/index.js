@@ -14,7 +14,6 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-
 // users routes
 app.use("/api/user", userRoutes);
 
@@ -24,5 +23,5 @@ app.use(invalidPathHandler)
 
 app.listen(process.env.PORT || 8000, () => {
   connectDB();
-  console.log("listning... at http://localhost:8000");
+  console.log(`listning... at http://localhost:${process.env.PORT || 8000}`);
 });
