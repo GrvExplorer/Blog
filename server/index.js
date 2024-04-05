@@ -4,6 +4,7 @@ import express from "express";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import { errorResponserHandler, invalidPathHandler } from "./middleware/errorHandler.js";
+import blogRouters from "./routes/blogRoutes.js";
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,8 @@ app.get("/", (req, res) => {
 
 // users routes
 app.use("/api/user", userRoutes);
+
+app.use("/api/blog", blogRouters)
 
 // order in which they are defined is important and next function is for triggering middleware/nextRoutes
 app.use(errorResponserHandler)
